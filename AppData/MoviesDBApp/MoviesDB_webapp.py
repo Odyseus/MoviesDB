@@ -16,18 +16,7 @@ import sys
 
 from subprocess import call
 
-dir_path = os.path.abspath(os.path.dirname(__file__))
-
-try:
-    for x in range(0, 3):
-        dir_path = os.path.dirname(dir_path)
-
-    sys.path.insert(0, dir_path)
-except Exception:
-    pass
-
-from .python_utils import bottle
-
+from python_utils import bottle
 
 root_folder = os.path.realpath(os.path.abspath(os.path.join(
     os.path.normpath(os.getcwd()))))
@@ -107,6 +96,9 @@ class MoviesDBWebapp():
         call(["xdg-open", video_filename], cwd=video_folder)
 
 
+# FIXME: Convert this script into a module.
+# Just because it's the right thing to do.
+# As it is right now, everything works as "it should".
 if __name__ == "__main__":
     args = sys.argv[1:]
 
