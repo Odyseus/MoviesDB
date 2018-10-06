@@ -22,7 +22,9 @@ root_folder : str
 import json
 import os
 
-from .python_utils import exceptions, titlecase, tqdm
+from .python_utils import exceptions
+from .python_utils import titlecase
+from .python_utils import tqdm
 
 try:
     import requests
