@@ -48,7 +48,6 @@ class MoviesDBWebapp():
         port : str
             The port number used by the web server.
         """
-        super().__init__()
         self.host = host
         self.port = port
 
