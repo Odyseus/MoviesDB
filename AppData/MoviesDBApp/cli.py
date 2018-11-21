@@ -47,11 +47,11 @@ Options:
 --version
     Show application version.
 
---host=<host>]
+--host=<host>
     Host name. [Default: 0.0.0.0]
 
---port=<port>]
-    Port name. [Default: 8889]
+--port=<port>
+    Port number. [Default: 8889]
 
 --debug
     Debug.
