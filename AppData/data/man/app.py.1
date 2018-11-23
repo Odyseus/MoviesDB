@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "APP.PY" "1" "Nov 15, 2018" "" "Movies DB"
+.TH "APP.PY" "1" "Nov 22, 2018" "" "Movies DB"
 .SH NAME
 app.py \- A CLI utility to create a movies data base on GNU/Linux.
 .
@@ -77,6 +77,25 @@ Python 3.5+.
 \fB\-\-version\fP: Show this application version.
 .UNINDENT
 .SS Commands
+.SS app.py server
+.sp
+The HTTP server started will host the folder at \fBUserData/www\fP\&.
+.SS Sub\-commands
+.INDENT 0.0
+.IP \(bu 2
+\fBstart\fP: Start HTTP server.
+.IP \(bu 2
+\fBstop\fP: Stop HTTP server.
+.IP \(bu 2
+\fBrestart\fP: Restart HTTP server.
+.UNINDENT
+.SS Options
+.INDENT 0.0
+.IP \(bu 2
+\fB\-\-host=<host>\fP Host name.
+.IP \(bu 2
+\fB\-\-port=<port>\fP Port number.
+.UNINDENT
 .SS app.py generate
 .SS Sub\-commands
 .INDENT 0.0
