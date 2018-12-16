@@ -100,13 +100,13 @@ class CommandLineInterface(cli_utils.CommandLineInterfaceSuper):
         self.a = docopt_args
         self._cli_header_blacklist = [self.a["--manual"]]
 
-        super().__init__(__appname__, "UserData/logs")
+        super().__init__(__appname__)
 
         if self.a["--manual"]:
             self.action = self.display_manual_page
         elif self.a["server"]:
-            self.logger.info("Command: server")
-            self.logger.info("Arguments:")
+            self.logger.info("**Command:** server")
+            self.logger.info("**Arguments:**")
 
             if self.a["start"]:
                 self.logger.info("start")
@@ -119,16 +119,16 @@ class CommandLineInterface(cli_utils.CommandLineInterfaceSuper):
                 self.action = self.http_server_restart
         elif self.a["movies"]:
             if self.a["scan"]:
-                self.logger.info("Scanning directories...")
+                self.logger.info("**Scanning directories...**")
                 self.action = self.scan_directories
             elif self.a["base_data"]:
-                self.logger.info("Guessing movie names...")
+                self.logger.info("**Guessing movie names...**")
                 self.action = self.generate_movies_base_data_from_file_names
             elif self.a["detailed_data"]:
                 pass
         elif self.a["generate"]:
             if self.a["system_executable"]:
-                self.logger.info("System executable generation...")
+                self.logger.info("**System executable generation...**")
                 self.action = self.system_executable_generation
 
     def run(self):
