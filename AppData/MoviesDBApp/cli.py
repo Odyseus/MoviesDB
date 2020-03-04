@@ -88,6 +88,8 @@ class CommandLineInterface(cli_utils.CommandLineInterfaceSuper):
         Where docopt_args is stored.
     action : method
         Set the method that will be executed when calling CommandLineTool.run().
+    www_root : str
+        Path to the folder that will be served by the web server.
     """
     action = None
     www_root = os.path.join(root_folder, "UserData", "www")
