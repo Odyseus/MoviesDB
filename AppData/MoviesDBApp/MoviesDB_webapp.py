@@ -1,13 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""Summary
+"""Web application.
 
 Attributes
 ----------
-bottle_app : object
-    Bottle application.
-dir_path : str
-    Extra path to look for modules to import.
 root_folder : str
     The path to the folder that will be served by the web server.
 """
@@ -16,45 +12,35 @@ import sys
 
 from subprocess import call
 
+# NOTE: Failsafe imports due to this file being used as a script (when launching the server)
+# and as a module (when generating documentation with Sphinx).
 try:
-    from python_utils import bottle
+    from python_utils.bottle_utils import bottle
+    from python_utils.bottle_utils import bottle_app
+    from python_utils.bottle_utils import WebApp
 except (ImportError, SystemError):
-    from .python_utils import bottle
+    from .python_utils.bottle_utils import bottle
+    from .python_utils.bottle_utils import bottle_app
+    from .python_utils.bottle_utils import WebApp
 
 root_folder = os.path.realpath(os.path.abspath(os.path.join(
     os.path.normpath(os.getcwd()))))
 
-bottle_app = bottle.Bottle()
 
-
-class MoviesDBWebapp():
-    """Movies Data Base web server.
-
-    Attributes
-    ----------
-    host : str
-        The host name used by the web server.
-    port : str
-        The port number used by the web server.
+class MoviesDBWebapp(WebApp):
+    """Web server.
     """
-
-    def __init__(self, host, port):
+    def __init__(self, *args, **kwargs):
         """Initialization.
 
         Parameters
         ----------
-        host : str
-            The host name used by the web server.
-        port : str
-            The port number used by the web server.
+        *args
+            Arguments.
+        **kwargs
+            Keyword arguments.
         """
-        self.host = host
-        self.port = port
-
-    def run(self):
-        """Run web application.
-        """
-        bottle_app.run(host=self.host, port=self.port)
+        super().__init__(*args, **kwargs)
 
     @bottle_app.route("/assets/<filepath:path>")
     def server_static(filepath):
