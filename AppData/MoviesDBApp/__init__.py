@@ -3,7 +3,7 @@
 __status__ = "Unstable"
 __appname__ = "Movies DB"
 __appdescription__ = "CLI utility to create a movies data base on GNU/Linux."
-__version__ = "2020-02-19 12:00:13.466"
+__version__ = "2020-03-08 09:10:52.474"
 
 
 if __name__ == "__main__":
