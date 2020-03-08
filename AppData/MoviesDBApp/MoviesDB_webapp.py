@@ -4,7 +4,7 @@
 
 Attributes
 ----------
-root_folder : str
+www_root : str
     The path to the folder that will be served by the web server.
 """
 import os
@@ -12,24 +12,29 @@ import sys
 
 from subprocess import call
 
-# NOTE: Failsafe imports due to this file being used as a script (when launching the server)
-# and as a module (when generating documentation with Sphinx).
 try:
-    from python_utils.bottle_utils import bottle
-    from python_utils.bottle_utils import bottle_app
-    from python_utils.bottle_utils import WebApp
-except (ImportError, SystemError):
-    from .python_utils.bottle_utils import bottle
-    from .python_utils.bottle_utils import bottle_app
-    from .python_utils.bottle_utils import WebApp
+    # If executed as a script to start the web server.
+    host, port, app_dir_path = sys.argv[1:]
+except Exception:
+    # If imported as a module by Sphinx.
+    host, port = None, None
+    app_dir_path = os.path.realpath(os.path.abspath(os.path.join(
+        os.path.normpath(os.path.dirname(__file__)))))
 
-root_folder = os.path.realpath(os.path.abspath(os.path.join(
+sys.path.insert(0, app_dir_path)
+
+from python_utils.bottle_utils import WebApp
+from python_utils.bottle_utils import bottle
+from python_utils.bottle_utils import bottle_app
+
+www_root = os.path.realpath(os.path.abspath(os.path.join(
     os.path.normpath(os.getcwd()))))
 
 
 class MoviesDBWebapp(WebApp):
     """Web server.
     """
+
     def __init__(self, *args, **kwargs):
         """Initialization.
 
@@ -56,7 +61,7 @@ class MoviesDBWebapp(WebApp):
         object
             An instance of bottle.HTTPResponse.
         """
-        return bottle.static_file(filepath, root=os.path.join(root_folder, "assets"))
+        return bottle.static_file(filepath, root=os.path.join(www_root, "assets"))
 
     @bottle_app.route("/")
     def index():
@@ -67,7 +72,7 @@ class MoviesDBWebapp(WebApp):
         sre
             The content for the landing page.
         """
-        with open(os.path.join(root_folder, "index.html"), "r") as file:
+        with open(os.path.join(www_root, "index.html"), "r") as file:
             file_data = file.read()
 
         return file_data
@@ -87,9 +92,6 @@ class MoviesDBWebapp(WebApp):
 # FIXME: Convert this script into a module.
 # Just because it's the right thing to do.
 # As it is right now, everything works as "it should".
-if __name__ == "__main__":
-    args = sys.argv[1:]
-
-    if len(args) == 2:
-        app = MoviesDBWebapp(args[0], args[1])
-        app.run()
+if __name__ == "__main__" and host and port:
+    app = MoviesDBWebapp(host, port)
+    app.run()
